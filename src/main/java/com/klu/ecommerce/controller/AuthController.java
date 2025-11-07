@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "*") // ✅ allow calls from React frontend
 public class AuthController {
 
     private final UserService userService;
@@ -17,7 +17,6 @@ public class AuthController {
         this.userService = userService;
     }
 
-    // ✅ POST endpoint for signup
     @PostMapping("/signup")
     public ResponseEntity<String> registerUser(@RequestBody Map<String, String> request) {
         String username = request.get("username");
@@ -26,7 +25,6 @@ public class AuthController {
         return ResponseEntity.ok(userService.register(username, email, password));
     }
 
-    // ✅ POST endpoint for login
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody Map<String, String> request) {
         String username = request.get("username");
